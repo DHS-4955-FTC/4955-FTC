@@ -13,7 +13,6 @@ import com.qualcomm.robotcore.hardware.Gamepad.GamepadCallback;
  * Enables control of the robot via the gamepad
  */
 public class TestTeleOp extends OpMode {
-    float Test = 0;
 
 
     /*
@@ -66,19 +65,7 @@ public class TestTeleOp extends OpMode {
     @Override
     public void loop() {
 
-		/*
-		 * Gamepad 1
-		 *
-		 * Gamepad 1 controls the motors via the left stick, and it controls the
-		 * wrist/claw via the a,b, x, y buttons
-		 */
 
-        // throttle: left_stick_y ranges from -1 to 1, where -1 is full up, and
-        // 1 is full down
-        // direction: left_stick_x ranges from -1 to 1, where -1 is full left
-        // and 1 is full right
-
-        //Test = Test + 1;z
 
         float throttle = -gamepad1.right_stick_y;
         float direction = gamepad1.right_stick_x;
@@ -105,7 +92,7 @@ public class TestTeleOp extends OpMode {
 
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-        telemetry.addData("Power:", Test);
+        
     }
 
 
