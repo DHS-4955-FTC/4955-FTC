@@ -22,8 +22,8 @@ public class TestTeleOp extends OpMode {
      */
 
 
-    DcMotor motorRight;
-    DcMotor motorLeft;
+    DcMotor right_motor;
+    DcMotor left_motor;
 
 
     /**
@@ -49,9 +49,9 @@ public class TestTeleOp extends OpMode {
 		 */
 
 
-        motorRight = hardwareMap.dcMotor.get("motorRight");
-        motorLeft = hardwareMap.dcMotor.get("motorLeft");
-        motorLeft.setDirection(DcMotor.Direction.REVERSE);
+        right_motor = hardwareMap.dcMotor.get("right_motor");
+        left_motor = hardwareMap.dcMotor.get("left_motor");
+        left_motor.setDirection(DcMotor.Direction.REVERSE);
 
 
     }
@@ -85,14 +85,16 @@ public class TestTeleOp extends OpMode {
         left = (float) scaleInput(left);
 
         // write the values to the motors
-        motorRight.setPower(right);
-        motorLeft.setPower(left);
+        right_motor.setPower(right);
+        left_motor.setPower(left);
+         I'M BORED!!!!!
 
+        '
 
 
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-        
+
     }
 
 
