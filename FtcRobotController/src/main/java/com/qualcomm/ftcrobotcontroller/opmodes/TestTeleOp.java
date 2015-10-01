@@ -87,9 +87,9 @@ public class TestTeleOp extends OpMode {
         // write the values to the motors
         right_motor.setPower(right);
         left_motor.setPower(left);
-         I'M BORED!!!!!
 
-        '
+
+        
 
 
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", left));
