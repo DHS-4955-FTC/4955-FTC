@@ -89,7 +89,7 @@ public class TestTeleOp extends OpMode {
         left_motor.setPower(left);
 
 
-        
+
 
 
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", left));
