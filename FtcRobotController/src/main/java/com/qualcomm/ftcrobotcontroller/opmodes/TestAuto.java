@@ -115,7 +115,7 @@ public class TestAuto extends OpMode {
 
         telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("time", "elapsed time: " + Double.toString(this.time));
-        telemetry.addData("Rotation",)
+        telemetry.addDat
 
     }
 
