@@ -50,7 +50,7 @@ public class StandardTeleOp extends OpMode {
 
         right_motor = hardwareMap.dcMotor.get("right_motor");
         left_motor = hardwareMap.dcMotor.get("left_motor");
-        left_motor.setDirection(DcMotor.Direction.REVERSE);
+        right_motor.setDirection(DcMotor.Direction.REVERSE);
 
 
     }
@@ -70,8 +70,8 @@ public class StandardTeleOp extends OpMode {
         //float direction = gamepad1.right_stick_x; //this is for 1joy
         //float throttle = -Test;
         //float direction = Test;
-        float right = -gamepad1.right_stick_y;
-        float left = -gamepad1.left_stick_y;
+        float right = gamepad1.right_stick_y;
+        float left = gamepad1.left_stick_y;
 
 
         // clip the right/left values so that the values never exceed +/- 1

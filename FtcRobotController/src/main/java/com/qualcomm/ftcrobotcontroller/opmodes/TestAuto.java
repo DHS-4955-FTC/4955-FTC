@@ -16,9 +16,7 @@ import java.lang.Math;
 
 public class TestAuto extends OpMode {
 
-    final static double MOTOR_POWER = 0.15; // Higher values will cause the robot to move faster
-    final static double HOLD_IR_SIGNAL_STRENGTH = 0.20; // Higher values will cause the robot to follow closer
-    final static double LIGHT_THRESHOLD = 0.5;
+
 
     DcMotor right_motor;
     DcMotor left_motor;
@@ -34,7 +32,7 @@ public class TestAuto extends OpMode {
 
         right_motor = hardwareMap.dcMotor.get("right_motor");
         left_motor = hardwareMap.dcMotor.get("left_motor");
-        left_motor.setDirection(DcMotor.Direction.REVERSE);
+        right_motor.setDirection(DcMotor.Direction.REVERSE);
 
 
     }
@@ -74,7 +72,7 @@ public class TestAuto extends OpMode {
 
         telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("time", "elapsed time: " + Double.toString(this.time));
-1ff
+
 
     }
 
