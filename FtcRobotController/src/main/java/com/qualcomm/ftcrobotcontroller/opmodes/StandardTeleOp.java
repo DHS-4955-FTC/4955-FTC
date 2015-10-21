@@ -66,12 +66,8 @@ public class StandardTeleOp extends OpMode {
 
 
 
-        // float throttle = -gamepad1.right_stick_y; //this is for 1joy
-        //float direction = gamepad1.right_stick_x; //this is for 1joy
-        //float throttle = -Test;
-        //float direction = Test;
-        float right = gamepad1.right_stick_y;
-        float left = gamepad1.left_stick_y;
+        float right = -gamepad1.right_stick_y;
+        float left = -gamepad1.left_stick_y;
 
 
         // clip the right/left values so that the values never exceed +/- 1
@@ -107,11 +103,7 @@ public class StandardTeleOp extends OpMode {
 
     }
 
-    /*
-     * This method scales the joystick input so for low joystick values, the
-     * scaled value is less than linear.  This is to make it easier to drive
-     * the robot more precisely at slower speeds.
-     */
+
     double scaleInput(double dVal)  {
         double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                 0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };

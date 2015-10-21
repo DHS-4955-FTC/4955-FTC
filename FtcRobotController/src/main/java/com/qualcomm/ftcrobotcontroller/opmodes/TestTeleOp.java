@@ -50,16 +50,11 @@ public class TestTeleOp extends OpMode {
 
         right_motor = hardwareMap.dcMotor.get("right_motor");
         left_motor = hardwareMap.dcMotor.get("left_motor");
-        left_motor.setDirection(DcMotor.Direction.REVERSE);
+        right_motor.setDirection(DcMotor.Direction.REVERSE);
 
 
     }
 
-    /*
-     * This method will be called repeatedly in a loop
-     *
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#run()
-     */
 
     @Override
     public void loop() {
