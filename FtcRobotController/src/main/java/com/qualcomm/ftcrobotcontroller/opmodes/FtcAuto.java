@@ -6,6 +6,7 @@ import android.hardware.SensorManager;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.util.Range;
 import java.lang.Math;
 
@@ -15,11 +16,14 @@ import java.lang.Math;
 
 
 public class FtcAuto extends OpMode {
+    final static double MOTOR_POWER = 0.25; // Higher values will cause the robot to move faster
+    final static double LIGHT_THRESHOLD = 0.5;
 
 
 
     DcMotor right_motor;
     DcMotor left_motor;
+    LightSensor reflectedLight;
 
     public FtcAuto() {
 
@@ -34,6 +38,9 @@ public class FtcAuto extends OpMode {
         left_motor = hardwareMap.dcMotor.get("left_motor");
         right_motor.setDirection(DcMotor.Direction.REVERSE);
 
+        reflectedLight = hardwareMap.lightSensor.get("light_sensor");
+        reflectedLight.enableLed(true);
+
 
     }
 
@@ -44,48 +51,29 @@ public class FtcAuto extends OpMode {
 
     @Override
     public void loop () {
+        double reflection = 0.0;
+        double left, right = 0.0;
 
+        reflection = reflectedLight.getLightDetected();
 
+        while(){
+            if (reflection < LIGHT_THRESHOLD) {
+			/*
+			 * if reflection is less than the threshold value, then assume we are above dark spot.
+			 * turn to the right.
+			 */
+                left = MOTOR_POWER;
+                right = 0.0;
+            }
 
-        if(this.time)
-        {
-            right_motor.setPower(.5);
-            left_motor.setPower(.5);
-        }
-        else if(this.time)
-        {
-            right_motor.setPower(.5);
-            left_motor.setPower(-.5);
-        }
-        else if(this.time)
-        {
-            right_motor.setPower(.5);
-            left_motor.setPower(.5);
-        }
-        else if
-        {
-            right_motor.setPower(-.5);
-            left_motor.setPower(-.5);
-        }
-        else if(this.time)
-        {
-            right_motor.setPower(.5);
-            left_motor.setPower(-.5);
-        }
-        if(this.time)
-        {
-            right_motor.setPower(.5);
-            left_motor.setPower(.5);
-        }
-        else if(this.time)
-        {
-            right_motor.setPower(.5);
-            left_motor.setPower(-.5);
-        }
-        if(this.time)
-        {
-            right_motor.setPower(.5);
-            left_motor.setPower(.5);
+            else {
+			/*
+			 * assume we are over a light spot.
+			 * turn to the left.
+			 */
+                left = 0.0;
+                right = MOTOR_POWER;
+            }
         }
 
 
