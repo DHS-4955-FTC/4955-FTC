@@ -1,3 +1,5 @@
+
+
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import android.hardware.Sensor;
@@ -7,6 +9,8 @@ import android.hardware.SensorManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
 import java.lang.Math;
 
@@ -16,14 +20,24 @@ import java.lang.Math;
 
 
 public class FtcAuto extends OpMode {
-    final static double MOTOR_POWER = 0.25; // Higher values will cause the robot to move faster
+
     final static double LIGHT_THRESHOLD = 0.5;
+    //Sets a value for how light the line  needs to be to follow.
 
 
 
-    DcMotor right_motor;
-    DcMotor left_motor;
+
+    Servo servo_right;
+    Servo servo_left;
+
+
+// Declares motors, sensors, and servos
+    DcMotor frontright_motor;
+    DcMotor backright_motor;
+    DcMotor frontleft_motor;
+    DcMotor backleft_motor;
     LightSensor reflectedLight;
+    TouchSensor touchSensor;
 
     public FtcAuto() {
 
@@ -33,12 +47,23 @@ public class FtcAuto extends OpMode {
     @Override
     public void init() {
 
+        servo_left = hardwareMap.servo.get("servo_left");
+        servo_right = hardwareMap.servo.get("servo_right");
 
-        right_motor = hardwareMap.dcMotor.get("right_motor");
-        left_motor = hardwareMap.dcMotor.get("left_motor");
-        right_motor.setDirection(DcMotor.Direction.REVERSE);
+        servo_left.setPosition(.90);
+        servo_right.setPosition(0);
 
-        reflectedLight = hardwareMap.lightSensor.get("light_sensor");
+// Initializes motors, sensors, and servos
+        frontright_motor = hardwareMap.dcMotor.get("frontright_motor");
+        backright_motor = hardwareMap.dcMotor.get("backright_motor");
+        frontleft_motor = hardwareMap.dcMotor.get("frontleft_motor");
+        backleft_motor = hardwareMap.dcMotor.get("backleft_motor");
+        frontright_motor.setDirection(DcMotor.Direction.REVERSE);
+        backright_motor.setDirection(DcMotor.Direction.REVERSE);;
+
+        touchSensor = hardwareMap.touchSensor.get("sensor_touch");
+
+        reflectedLight = hardwareMap.lightSensor.get("sensor_light");
         reflectedLight.enableLed(true);
 
 
@@ -51,30 +76,74 @@ public class FtcAuto extends OpMode {
 
     @Override
     public void loop () {
+
         double reflection = 0.0;
         double left, right = 0.0;
 
+
         reflection = reflectedLight.getLightDetected();
 
-        while(){
-            if (reflection < LIGHT_THRESHOLD) {
+        if(this.time < 1.5)
+        {
+            frontright_motor.setPower(1);
+            backright_motor.setPower(1);
+            frontleft_motor.setPower(1);
+            backleft_motor.setPower(1);
+        }
+        else if(this.time > 1.5 && this.time < 2.05)
+        {
+            frontright_motor.setPower(-1);
+            backright_motor.setPower(-1);
+            frontleft_motor.setPower(1);
+            backleft_motor.setPower(1);
+        }
+        else if(this.time > 2.05 && this.time < 5)
+        {
+            frontright_motor.setPower(1);
+            backright_motor.setPower(1);
+            frontleft_motor.setPower(1);
+            backleft_motor.setPower(1);
+        }
+
+
+
+        else{
+
+
+
+            if(touchSensor.isPressed()) {
+
+                frontright_motor.setPower(0);
+                backright_motor.setPower(0);
+                frontleft_motor.setPower(0);
+                backleft_motor.setPower(0);
+
+            }
+            else {
+                if (reflection < LIGHT_THRESHOLD) {
 			/*
 			 * if reflection is less than the threshold value, then assume we are above dark spot.
 			 * turn to the right.
 			 */
-                left = MOTOR_POWER;
-                right = 0.0;
-            }
-
-            else {
+                    frontright_motor.setPower(-.25);
+                    backright_motor.setPower(-.25);
+                    frontleft_motor.setPower(0.5);
+                    backleft_motor.setPower(0.5);
+                }
+                else {
 			/*
 			 * assume we are over a light spot.
 			 * turn to the left.
 			 */
-                left = 0.0;
-                right = MOTOR_POWER;
+                    frontright_motor.setPower(0.5);
+                    backright_motor.setPower(0.5);
+                    frontleft_motor.setPower(-.25);
+                    backleft_motor.setPower(-.25);
+                }
             }
-        }
+            }
+
+        
 
 
 
