@@ -126,8 +126,8 @@ public class StandardTeleOp extends OpMode {
 
 
         // clip the right/left values so that the values never exceed +/- 1
-        right = Range.clip(right, -.9, .9);
-        left = Range.clip(left, -.9, .9);
+       // right = Range.clip(right, -.9, .9);
+       // left = Range.clip(left, -.9, .9);
 
         // scale the joystick value to make it easier to control
         // the robot more precisely at slower speeds.
